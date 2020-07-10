@@ -2,6 +2,7 @@ package com.bolsadeideas.springboot.app.springbooterror.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.bolsadeideas.springboot.app.springbooterror.models.domain.Usuario;
 
@@ -23,7 +24,7 @@ public class UsuarioServiceIml implements UsuarioService {
         this.lista.add(new Usuario(5, "Pato", "González"));
         this.lista.add(new Usuario(6, "Paco", "Rodríguez"));
         this.lista.add(new Usuario(7, "Juan", "Gómez"));
-    }   
+    }
 
     @Override
     public List<Usuario> listar() {
@@ -32,14 +33,17 @@ public class UsuarioServiceIml implements UsuarioService {
 
     @Override
     public Usuario obtenerPorId(Integer id) {
-        for(Usuario user: lista) {
-            if(user.getId().equals(id)) {
+        for (Usuario user : lista) {
+            if (user.getId().equals(id)) {
                 return user;
             }
         }
         return null;
     }
 
-
-    
+    @Override
+    public Optional<Usuario> obtenerPorIdOptional(Integer id) {
+        Usuario usuario = obtenerPorId(id);
+        return Optional.ofNullable(usuario);
+    }
 }
